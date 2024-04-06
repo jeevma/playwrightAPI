@@ -42,9 +42,9 @@ public class CreateUserPostCallTest {
     }
     @Test
     public void createUserTest() throws IOException {
-        Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<>();
         data.put("name", "San Man");
-        data.put("email", "testplaywrightautomation" + System.currentTimeMillis() + "@gmail.com");
+        data.put("email", getRandomEmail());
         data.put("gender", "male");
         data.put("status", "active");
         APIResponse apiPostResponse = requestContext.post("https://gorest.co.in/public/v2/users",
