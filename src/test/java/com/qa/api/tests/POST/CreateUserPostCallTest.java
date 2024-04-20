@@ -2,49 +2,28 @@ package com.qa.api.tests.POST;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.microsoft.playwright.APIRequest;
-import com.microsoft.playwright.APIRequestContext;
 import com.microsoft.playwright.APIResponse;
-import com.microsoft.playwright.Playwright;
 import com.microsoft.playwright.options.RequestOptions;
+import com.qa.api.tests.BaseAPITest;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import com.api.logger.Logger;
+import com.api.utils.CommonUtility;
 
-public class CreateUserPostCallTest {
-    Playwright playwright;
-    APIRequest request;
-    APIRequestContext requestContext;
+public class CreateUserPostCallTest extends BaseAPITest {
 
-    static  String emailId;
-
-
-    @BeforeTest
-    public void setup() {
-        playwright = Playwright.create();
-        request = playwright.request();
-        requestContext = request.newContext();
-    }
-
-    @AfterTest
-    public void tearDown() {
-        playwright.close();
-    }
-
-    public static String getRandomEmail() {
-        emailId = "testplaywrightautomation" + System.currentTimeMillis() + "@gmail.com";
-        return emailId;
-    }
+    String emailId = CommonUtility.getRandomEmail();
     @Test
     public void createUserTest() throws IOException {
+        Logger.info("Starting createUserTest...");
         Map<String, Object> data = new HashMap<>();
         data.put("name", "San Man");
-        data.put("email", getRandomEmail());
+        data.put("email", emailId);
         data.put("gender", "male");
         data.put("status", "active");
         APIResponse apiPostResponse = requestContext.post("https://gorest.co.in/public/v2/users",
